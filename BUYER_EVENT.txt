@@ -1,0 +1,78 @@
+create keyspace buyer_events with replication = {'class' :
+'SimpleStrategy','replication_factor':'1'};
+use buyer_events;
+BUYERS TABLE :
+
+
+
+create table buyers(
+ ... buyer_id int primary key,
+ ... username text,
+ ... email text,
+ ... address text);
+Inserting :
+insert into buyers(buyer_id,username,email,address)
+ ... values(1,'user1','user1@example.com','hyd');
+cqlsh:buyer_events> insert into buyers(buyer_id,username,email,address)
+ ... values(2,'user2','user2@example.com','mum');
+cqlsh:buyer_events> insert into buyers(buyer_id,username,email,address)
+ ... values(3,'user3','user3@example.com','pun');
+cqlsh:buyer_events> insert into buyers(buyer_id,username,email,address)
+ ... values(4,'user4','user4@example.com','hyd');
+cqlsh:buyer_events> insert into buyers(buyer_id,username,email,address)
+ ... values(5,'user5','user5@example.com','pun');
+insert into buyers(buyer_id,username,email,address)
+ ... values(6,'user6','user6@example.com','mum');
+
+
+
+create table products(
+ ... product_id int primary key,
+ ... name text,
+ ... category text,
+ ... price int);
+cqlsh:buyer_events> insert into products(product_id,name,category,price)
+ ... values (1, 'coffee maker', 'appliances', 60);
+cqlsh:buyer_events> insert into products (product_id, name, category, price)
+ ... values (2, 'phone', 'electronics', 300);
+cqlsh:buyer_events> insert into products (product_id, name, category, price)
+ ... values (3, 'led tv', 'electronics', 600);
+cqlsh:buyer_events> insert into products (product_id, name, category, price)
+ ... values (4,'running shoes', 'apparel', 100);
+
+cqlsh:buyer_events> insert into products (product_id, name, category, price)
+ ... values (5,'oven', 'appliances', 500);
+
+
+create table purchase_history(
+ ... transactionID int primary key,
+ ... buyer_id int,
+ ... product_id int,
+ ... quantity int,
+ ... total_amount int,
+ ... purchase_date timestamp);
+INSERTIONS :
+insert into
+purchase_history(transactionID,buyer_id,product_id,quantity,total_amount,purchase_date)
+10
+Section-A BDA Lab JNTUH UCESTH
+ ... values(1,1,5,2,800,toTimestamp(now()));
+cqlsh:buyer_events> insert into
+purchase_history(transactionID,buyer_id,product_id,quantity,total_amount,purchase_date)
+ ... values(2,1,4,4,400,toTimestamp(now()));
+cqlsh:buyer_events> insert into
+purchase_history(transactionID,buyer_id,product_id,quantity,total_amount,purchase_date)
+ ... values(3,2,4,1,100,toTimestamp(now()));
+cqlsh:buyer_events> insert into
+purchase_history(transactionID,buyer_id,product_id,quantity,total_amount,purchase_date)
+ ... values(4,2,1,3,180,toTimestamp(now()));
+cqlsh:buyer_events> insert into
+purchase_history(transactionID,buyer_id,product_id,quantity,total_amount,purchase_date)
+ ... values(5,3,3,4,2400,toTimestamp(now()));
+cqlsh:buyer_events> insert into
+purchase_history(transactionID,buyer_id,product_id,quantity,total_amount,purchase_date)
+ ... values(6,4,2,2,600,toTimestamp(now()));
+
+
+
+
